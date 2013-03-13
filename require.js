@@ -1590,12 +1590,18 @@ var requirejs, require, define;
                     //Join the path parts together, then figure out if baseUrl is needed.
                     url = syms.join('/');
                     url += (ext || (/\?/.test(url) || skipExt ? '' : '.js'));
+
+                    // soluvas's JS logic: append urlArgs if before appending baseUrl, the url is already absolute URL
+                    var appendUrlArgs = config.urlArgs && ! /\/\//.test(url);
+
                     url = (url.charAt(0) === '/' || url.match(/^[\w\+\.\-]+:/) ? '' : config.baseUrl) + url;
+
+                    if (appendUrlArgs) {
+                    	url += (url.indexOf('?') === -1 ? '?' : '&') + config.urlArgs;
+                    }
                 }
 
-                return config.urlArgs ? url +
-                                        ((url.indexOf('?') === -1 ? '?' : '&') +
-                                         config.urlArgs) : url;
+                return url;
             },
 
             //Delegates to req.load. Broken out as a separate function to
