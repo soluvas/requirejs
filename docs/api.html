@@ -77,7 +77,7 @@ up locations of a group of scripts. All of these capabilities allow you to use s
 
 <p>In general though, it is best to use the baseUrl and "paths" config to set paths for module IDs. By doing so, it gives you more flexibility in renaming and configuring the paths to different locations for optimization builds.</p>
 
-<p>Similarly, to avoid a bunch of configuration, it is best to avoid deep folder hierarchies for scripts, and instead either keep all the scripts in baseUrl, or if you want to separate your library/vendor-supplied code form your app code, use a directory layout like this:</p>
+<p>Similarly, to avoid a bunch of configuration, it is best to avoid deep folder hierarchies for scripts, and instead either keep all the scripts in baseUrl, or if you want to separate your library/vendor-supplied code from your app code, use a directory layout like this:</p>
 
 <ul>
     <li>www/
@@ -706,7 +706,9 @@ define(['module'], function (module) {
 
 <p id="config-context"><strong><a href="#config-context">context</a></strong>: A name to give to a loading context. This allows require.js to load multiple versions of modules in a page, as long as each top-level require call specifies a unique context string. To use it correctly, see the <a href="#multiversion">Multiversion Support</a> section.</p>
 
-<p id="config-deps"><strong><a href="#config-deps">deps</a></strong>: An array of dependencies to load. Useful when require is defined as a config object before require.js is loaded, and you want to specify dependencies to load as soon as require() is defined.</p>
+<p id="config-deps"><strong><a href="#config-deps">deps</a></strong>: An array of dependencies to load. Useful when require is defined as a config object before require.js is loaded, and you want to specify dependencies to load as soon as require() is defined. Using deps is just like doing a <code>require([])</code> call, but done as soon as the loader has processed the configuration. <strong>It does not block</strong>
+any other require() calls from starting their requests for modules, it is just a way to specify
+some modules to load asynchronously as part of a config block.</p>
 
 <p id="config-callback"><strong><a href="#config-callback">callback</a></strong>: A function to execute after <strong>deps</strong> have been loaded. Useful when require is defined as a config object before require.js is loaded, and you want to specify a function to require after the configuration's <strong>deps</strong> array has been loaded.</p>
 
